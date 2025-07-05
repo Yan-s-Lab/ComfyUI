@@ -184,6 +184,12 @@ RUN du -ah /root \
     && rm -rf /root/.[^.]* /root/.??*
 
 COPY runner-scripts/.  /runner-scripts/
+# 复制workflow文件到多个位置以支持不同的访问方式
+COPY example_workflows/.  /root/ComfyUI-Example-Workflows/
+# 为ComfyUI用户目录预设workflow模板
+COPY example_workflows/*.json  /root/user/default/workflows/
+# 为input目录预设带元数据的图片
+COPY example_workflows/meta_data_images/*.png  /root/input/
 
 USER root
 VOLUME /root
